@@ -1,10 +1,14 @@
 class Pack {
-    var duracion
+    const duracion
     var precioBase
     const beneficios = []
     const coordinador
     
-   // method esPremium() 
+    method esPremium() 
+
+    method duracion() = duracion 
+
+    method coordinador() = coordinador
 
     method costosDeBeneficios() = if (beneficios.size()== 0) 0 else beneficios.filter({ben => ben.estaVigente()}).sum({ ben => ben.costo() }) 
 
@@ -17,7 +21,7 @@ class Pack {
 class PackNacionales inherits Pack {
     var proviciaDestino
     const actividades = []
-
+    override method esPremium() = self.duracion() > 10 and self.coordinador().altamenteCalificado()
 }
 class PackInternacionales inherits Pack {
     var paisDestino
@@ -25,6 +29,12 @@ class PackInternacionales inherits Pack {
     var esLugarDeInteres
 
     override method calcularPrecioFinal() = (super()) * 1.20
+
+    method esLugarDeInteres() =  esLugarDeInteres
+
+    method cantidadDeEscalas() = cantidadDeEscalas 
+
+    override method esPremium() = self.esLugarDeInteres() and self.duracion() > 20 and self.cantidadDeEscalas() == 0
 }
 
 class Coordinador {
@@ -48,12 +58,8 @@ class Coordinador {
     method rol() = rol
 
     method altamenteCalificado() = self.cantidadDeViajes() > 20 and self.rol().condicionAdicional(self)
-      
-    
+
 }
-
-
-
 object guia {
   method condicionAdicional(unCoordinador) = unCoordinador.estaMotivado() and unCoordinador.cantidadDeViajes() >= 21
 }

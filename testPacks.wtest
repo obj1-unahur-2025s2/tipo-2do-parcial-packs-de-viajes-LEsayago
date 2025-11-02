@@ -86,3 +86,40 @@ describe "Coordinador" {
     assert.that(coordinadorAcompaniante.altamenteCalificado())
   }
 }
+
+describe "Packs premium " {
+  test "Un pack nacional es premium" {
+    const coordinadorPremium = new Coordinador(
+      cantidadDeViajes = 30,
+      estaMotivado = true,
+      aniosExperiencia = 5,
+      rol = guia
+    )
+    const packNacionalPremium = new PackNacionales(
+      duracion = 15,
+      precioBase = 1500,
+      proviciaDestino = "Mendoza",
+      coordinador = coordinadorPremium
+    )
+    assert.that(packNacionalPremium.esPremium())
+  }
+
+  test "un pack internacional no es premium" {
+    const coordinadorNoPremium = new Coordinador(
+      cantidadDeViajes = 10,
+      estaMotivado = false,
+      aniosExperiencia = 1,
+      rol = acompaniante
+    )
+    const packInternacionalNoPremium = new PackInternacionales(
+      duracion = 15,
+      precioBase = 2500,
+      paisDestino = "Chile",
+      cantidadDeEscalas = 2,
+      esLugarDeInteres = false,
+      coordinador = coordinadorNoPremium
+    )
+    assert.notThat(packInternacionalNoPremium.esPremium())
+    
+  }
+}
