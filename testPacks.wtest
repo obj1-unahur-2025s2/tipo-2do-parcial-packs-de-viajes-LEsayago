@@ -1,1 +1,54 @@
 // completar
+import packs.*
+
+describe "Calcular Valor Final de beneficios" {
+  const coordinador1 = new Coordinador(
+    cantidadDeViajes = 5,
+    estaMotivado = true,
+    aniosExperiencia = 3,
+    rol = guia
+  )
+  const packNacionalCordoba = new PackNacionales(
+    duracion = 7,
+    precioBase = 1000,
+    proviciaDestino = "Cordoba",
+    coordinador = coordinador1
+  )
+  const trasladoPrivado = new BeneficioEspecial(
+    tipo = "Traslado Privado",
+    costo = 200,
+    estaVigente = true
+  )
+  const accesoASalasVIP = new BeneficioEspecial(
+    tipo = "Acceso a Salas VIP",
+    costo = 150,
+    estaVigente = true
+  )
+  const segurosAdicionales = new BeneficioEspecial(
+    tipo = "Seguros Adicionales",
+    costo = 100,
+    estaVigente = true
+  )
+  const packInternacionalBrasil = new PackInternacionales(
+    duracion = 10,
+    precioBase = 2000,
+    paisDestino = "Brasil",
+    cantidadDeEscalas = 1,
+    esLugarDeInteres = true,
+    coordinador = coordinador1
+  )
+  
+  test "Pack nacional sin beneficios" {
+    assert.equals(1000, packNacionalCordoba.calcularPrecioFinal())
+  }
+
+  test "Pack nacional con 2 beneficios vigentes" {
+    packNacionalCordoba.agregarBeneficio(trasladoPrivado)
+    packNacionalCordoba.agregarBeneficio(accesoASalasVIP)
+   
+    assert.equals(1350, packNacionalCordoba.calcularPrecioFinal())
+  }
+    test "Pack internacional sin beneficios vigentes" {
+        assert.equals(2400, packInternacionalBrasil.calcularPrecioFinal())
+    }
+}
