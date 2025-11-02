@@ -3,6 +3,8 @@ class Pack {
     var precioBase
     const beneficios = []
     const coordinador
+    
+   // method esPremium() 
 
     method costosDeBeneficios() = if (beneficios.size()== 0) 0 else beneficios.filter({ben => ben.estaVigente()}).sum({ ben => ben.costo() }) 
 
@@ -15,6 +17,7 @@ class Pack {
 class PackNacionales inherits Pack {
     var proviciaDestino
     const actividades = []
+
 }
 class PackInternacionales inherits Pack {
     var paisDestino
@@ -39,18 +42,26 @@ class Coordinador {
         }
         rol = unNuevoRol
     }
+    method estaMotivado() = estaMotivado
+    method aniosDeExperiencia() = aniosExperiencia
+    method cantidadDeViajes() = cantidadDeViajes 
+    method rol() = rol
+
+    method altamenteCalificado() = self.cantidadDeViajes() > 20 and self.rol().condicionAdicional(self)
+      
+    
 }
 
 
 
 object guia {
-  
+  method condicionAdicional(unCoordinador) = unCoordinador.estaMotivado() and unCoordinador.cantidadDeViajes() >= 21
 }
 object asistenteTuristico {
-  
+  method condicionAdicional(unCoordinador) = unCoordinador.aniosDeExperiencia() >= 3
 }
 object acompaniante {
-  
+    method condicionAdicional(unCoordinador) = true
 }
 
 class BeneficioEspecial {

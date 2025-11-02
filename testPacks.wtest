@@ -1,9 +1,10 @@
 // completar
+// completar
 import packs.*
 
 describe "Calcular Valor Final de beneficios" {
   const coordinador1 = new Coordinador(
-    cantidadDeViajes = 5,
+    cantidadDeViajes = 21,
     estaMotivado = true,
     aniosExperiencia = 3,
     rol = guia
@@ -41,14 +42,47 @@ describe "Calcular Valor Final de beneficios" {
   test "Pack nacional sin beneficios" {
     assert.equals(1000, packNacionalCordoba.calcularPrecioFinal())
   }
-
+  
   test "Pack nacional con 2 beneficios vigentes" {
     packNacionalCordoba.agregarBeneficio(trasladoPrivado)
     packNacionalCordoba.agregarBeneficio(accesoASalasVIP)
-   
+    
     assert.equals(1350, packNacionalCordoba.calcularPrecioFinal())
   }
-    test "Pack internacional sin beneficios vigentes" {
-        assert.equals(2400, packInternacionalBrasil.calcularPrecioFinal())
-    }
+  
+  test "Pack internacional sin beneficios vigentes" {
+    assert.equals(2400, packInternacionalBrasil.calcularPrecioFinal())
+  }
+}
+
+describe "Coordinador" {
+  test "Guia altamente calificado" {
+    const coordinadorGuia = new Coordinador(
+      cantidadDeViajes = 21,
+      estaMotivado = true,
+      aniosExperiencia = 2,
+      rol = guia
+    )
+    assert.that(coordinadorGuia.altamenteCalificado())
+  }
+  
+  test "Asistente turistico no altamente calificado" {
+    const coordinadorAsistente = new Coordinador(
+      cantidadDeViajes = 15,
+      estaMotivado = true,
+      aniosExperiencia = 2,
+      rol = asistenteTuristico
+    )
+    assert.notThat(coordinadorAsistente.altamenteCalificado())
+  }
+  
+  test "Acompaniante altamente calificado" {
+    const coordinadorAcompaniante = new Coordinador(
+      cantidadDeViajes = 25,
+      estaMotivado = false,
+      aniosExperiencia = 1,
+      rol = acompaniante
+    )
+    assert.that(coordinadorAcompaniante.altamenteCalificado())
+  }
 }
