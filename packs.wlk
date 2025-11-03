@@ -79,3 +79,5 @@ class BeneficioEspecial {
   method costo() = costo
   method tipo() = tipo
 }
+
+//probando
